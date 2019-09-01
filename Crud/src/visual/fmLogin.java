@@ -5,6 +5,9 @@
  */
 package visual;
 
+import java.sql.*;
+import DAL.ConectaBd;
+
 /**
  *
  * @author hugo lazzari
