@@ -7,6 +7,8 @@ package visual;
 
 import java.sql.*;
 import DAL.ConectaBd;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,11 +16,15 @@ import DAL.ConectaBd;
  */
 public class fmLogin extends javax.swing.JFrame {
 
+    Connection con = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
     /**
      * Creates new form fmLogin
      */
-    public fmLogin() {
+    public fmLogin() throws ClassNotFoundException {
         initComponents();
+        con = ConectaBd.conectabd();
     }
 
     /**
@@ -77,7 +83,11 @@ public class fmLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new fmLogin().setVisible(true);
+                try {
+                    new fmLogin().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(fmLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
