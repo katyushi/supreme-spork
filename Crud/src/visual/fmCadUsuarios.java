@@ -29,7 +29,7 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
 
     public void cadastraUsuarios() {
         String sql;
-        sql = "INSERT INTO usuarios(nome,telefone,endereco), values(?,?,?)";
+        sql = "insert into usuarios(nome,telefone,endereco) values(?,?,?)";
         try{
             pst = conecta.prepareStatement(sql);
             pst.setString(1, jtfNome.getText());
