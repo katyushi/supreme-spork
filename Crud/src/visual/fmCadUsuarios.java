@@ -102,7 +102,6 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Endereço:");
 
-        jbtCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/accept.png"))); // NOI18N
         jbtCadastrar.setText("Cadastrar");
         jbtCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,16 +109,12 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jbtEdita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/pencil.png"))); // NOI18N
         jbtEdita.setText("Editar");
 
-        jbtDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/delete.png"))); // NOI18N
         jbtDeletar.setText("Deletar");
 
-        jbtLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/cancel.png"))); // NOI18N
         jbtLimpar.setText("Limpar");
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/zoom.png"))); // NOI18N
         jLabel5.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -198,7 +193,7 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
                     .addComponent(jbtEdita)
                     .addComponent(jbtDeletar)
                     .addComponent(jbtLimpar))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jbtCadastrar, jbtDeletar, jbtEdita, jbtLimpar});

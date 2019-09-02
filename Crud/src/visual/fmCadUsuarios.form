@@ -110,7 +110,7 @@
                   <Component id="jbtDeletar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtLimpar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace pref="53" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -175,9 +175,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="jbtCadastrar">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/visual/accept.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Cadastrar"/>
       </Properties>
       <Events>
@@ -186,25 +183,16 @@
     </Component>
     <Component class="javax.swing.JButton" name="jbtEdita">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/visual/pencil.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Editar"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jbtDeletar">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/visual/delete.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Deletar"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jbtLimpar">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/visual/cancel.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Limpar"/>
       </Properties>
     </Component>
@@ -212,9 +200,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/visual/zoom.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
     </Component>
