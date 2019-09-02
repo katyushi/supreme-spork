@@ -5,19 +5,43 @@
  */
 package visual;
 
+import DAL.ConectaBd;
+import java.sql.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author hugo lazzari
  */
 public class fmCadUsuarios extends javax.swing.JInternalFrame {
 
+    Connection conecta;
+    PreparedStatement pst;
+    ResultSet rs;
     /**
      * Creates new form fmCadUsuarios
+     * @throws java.lang.ClassNotFoundException
      */
-    public fmCadUsuarios() {
+    public fmCadUsuarios() throws ClassNotFoundException {
         initComponents();
-        this.setLocation(500, 200);
+        this.setLocation(0b111000010, 200);
+        conecta = ConectaBd.conectabd();
     }
+
+    public void cadastraUsuarios() {
+        String sql;
+        sql = "INSERT INTO usuarios(nome,telefone,endereco), values(?,?,?)";
+        try{
+            pst = conecta.prepareStatement(sql);
+            pst.setString(1, jtfNome.getText());
+            pst.setString(2, jftfTelefone.getText());
+            pst.setString(3, jtfEndereco.getText());
+            pst.execute();
+            JOptionPane.showMessageDialog(null,"usuario cadastrado com sucesso!","usuario cadastrado com sucesso!",JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch(SQLException error){
+            JOptionPane.showMessageDialog(null, error);
+        }
+    }//fecha cadastrausuarios
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,6 +66,8 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
         jbtEdita = new javax.swing.JButton();
         jbtDeletar = new javax.swing.JButton();
         jbtLimpar = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -78,6 +104,11 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
 
         jbtCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/accept.png"))); // NOI18N
         jbtCadastrar.setText("Cadastrar");
+        jbtCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtCadastrarActionPerformed(evt);
+            }
+        });
 
         jbtEdita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/pencil.png"))); // NOI18N
         jbtEdita.setText("Editar");
@@ -87,6 +118,9 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
 
         jbtLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/cancel.png"))); // NOI18N
         jbtLimpar.setText("Limpar");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/zoom.png"))); // NOI18N
+        jLabel5.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,6 +161,12 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jbtCadastrar, jbtDeletar, jbtEdita, jbtLimpar});
@@ -134,6 +174,11 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(7, 7, 7)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -153,7 +198,7 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
                     .addComponent(jbtEdita)
                     .addComponent(jbtDeletar)
                     .addComponent(jbtLimpar))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jbtCadastrar, jbtDeletar, jbtEdita, jbtLimpar});
@@ -161,14 +206,20 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCadastrarActionPerformed
+        cadastraUsuarios();
+    }//GEN-LAST:event_jbtCadastrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jbtCadastrar;
     private javax.swing.JButton jbtDeletar;
     private javax.swing.JButton jbtEdita;

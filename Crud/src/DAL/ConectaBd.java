@@ -19,7 +19,7 @@ public class ConectaBd {
         try {
             Class.forName("org.postgresql.Driver");
             Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Crud", "postgres", "33422794");
-            JOptionPane.showMessageDialog(null, "Conectado com Sucesso!");
+            //JOptionPane.showMessageDialog(null, "Conectado com Sucesso!");
             return con;
         } catch (SQLException error) {
 

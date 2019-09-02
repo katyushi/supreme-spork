@@ -5,7 +5,9 @@
  */
 package visual;
 
-import java.util.Locale;
+import java.awt.Component;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -103,9 +105,14 @@ public class fmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        fmCadUsuarios fm = new fmCadUsuarios();
+        fmCadUsuarios fm = null;
+        try {
+            fm = new fmCadUsuarios();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(fmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         fm.setVisible(true);
-        jdp1.add(fm);
+        Component add = jdp1.add(fm);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
@@ -136,10 +143,8 @@ public class fmPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new fmPrincipal().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new fmPrincipal().setVisible(true);
         });
     }
 
