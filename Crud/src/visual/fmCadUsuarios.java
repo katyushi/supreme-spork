@@ -8,6 +8,7 @@ package visual;
 import DAL.ConectaBd;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 /**
  *
  * @author hugo lazzari
@@ -25,7 +26,20 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
         initComponents();
         this.setLocation(0b111000010, 200);
         conecta = ConectaBd.conectabd();
+        listarUsuarios();
     }
+    
+    public void listarUsuarios(){
+        String sql = "select * from usuarios";
+        try{
+            pst = conecta.prepareStatement(sql);
+            rs = pst.executeQuery();
+            jtblUser.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+        catch(SQLException error){
+            JOptionPane.showMessageDialog(null, error);
+        }
+    }//fecha listar usuarios
 
     public void cadastraUsuarios() {
         String sql;
@@ -37,11 +51,25 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
             pst.setString(3, jtfEndereco.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null,"usuario cadastrado com sucesso!","usuario cadastrado com sucesso!",JOptionPane.INFORMATION_MESSAGE);
+            listarUsuarios();
         }
         catch(SQLException error){
             JOptionPane.showMessageDialog(null, error);
         }
     }//fecha cadastrausuarios
+    
+    public void pesquisarUsuarios(){
+        String sql = "select from usuarios where nome like ?";
+        try{
+            pst = conecta.prepareStatement(sql);
+            pst.setString(1, jtfPesquisar.getText());
+            rs = pst.executeQuery();
+            jtblUser.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+        catch(SQLException error){
+            JOptionPane.showMessageDialog(null, error);
+        }
+    }//fecha pesquisar usuarios
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,7 +81,7 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtblUser = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jftCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -66,14 +94,14 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
         jbtEdita = new javax.swing.JButton();
         jbtDeletar = new javax.swing.JButton();
         jbtLimpar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jtfPesquisar = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Cadastro de Usuarios");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtblUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -84,7 +112,12 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jtblUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtblUserKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtblUser);
 
         jLabel1.setText("Codigo:");
 
@@ -114,6 +147,12 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
         jbtDeletar.setText("Deletar");
 
         jbtLimpar.setText("Limpar");
+
+        jtfPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfPesquisarKeyReleased(evt);
+            }
+        });
 
         jLabel5.setText("Buscar");
 
@@ -158,7 +197,7 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -171,7 +210,7 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(7, 7, 7)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,6 +244,14 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
         cadastraUsuarios();
     }//GEN-LAST:event_jbtCadastrarActionPerformed
 
+    private void jtblUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtblUserKeyReleased
+        
+    }//GEN-LAST:event_jtblUserKeyReleased
+
+    private void jtfPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisarKeyReleased
+        pesquisarUsuarios();
+    }//GEN-LAST:event_jtfPesquisarKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -213,15 +260,15 @@ public class fmCadUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jbtCadastrar;
     private javax.swing.JButton jbtDeletar;
     private javax.swing.JButton jbtEdita;
     private javax.swing.JButton jbtLimpar;
     private javax.swing.JTextField jftCodigo;
     private javax.swing.JFormattedTextField jftfTelefone;
+    private javax.swing.JTable jtblUser;
     private javax.swing.JTextField jtfEndereco;
     private javax.swing.JTextField jtfNome;
+    private javax.swing.JTextField jtfPesquisar;
     // End of variables declaration//GEN-END:variables
 }
