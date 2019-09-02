@@ -9,6 +9,7 @@ import java.sql.*;
 import DAL.ConectaBd;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,13 +20,34 @@ public class fmLogin extends javax.swing.JFrame {
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+
     /**
      * Creates new form fmLogin
+     *
+     * @throws java.lang.ClassNotFoundException
      */
     public fmLogin() throws ClassNotFoundException {
         initComponents();
         con = ConectaBd.conectabd();
-    }
+    }//fecha fmlogin()
+
+    public void Logar() {
+        String sql = "SELECT * FROM login WHERE usuario = ? AND senha = ?";
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setString(1, jtfUser.getText());
+            pst.setString(2, jpfSenha.getText());
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                fmPrincipal frm;
+                frm = new fmPrincipal();
+            } else {
+                JOptionPane.showMessageDialog(null, "usuario e senha incorretos");
+            }//fecha if
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, error);
+        }
+    }//fecha logar
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,22 +58,72 @@ public class fmLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        user = new javax.swing.JLabel();
+        password = new javax.swing.JLabel();
+        jtfUser = new javax.swing.JTextField();
+        jbtEntrar = new javax.swing.JButton();
+        jpfSenha = new javax.swing.JPasswordField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
+
+        user.setText("Usuario:");
+
+        password.setText("Senha:");
+
+        jbtEntrar.setText("Entrar");
+        jbtEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEntrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(user)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfUser, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(password)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jpfSenha))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(jbtEntrar)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(user)
+                    .addComponent(jtfUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(password)
+                    .addComponent(jpfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jbtEntrar)
+                .addGap(38, 38, 38))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEntrarActionPerformed
+        Logar();
+    }//GEN-LAST:event_jbtEntrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -64,7 +136,7 @@ public class fmLogin extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -81,17 +153,20 @@ public class fmLogin extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new fmLogin().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(fmLogin.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new fmLogin().setVisible(true);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(fmLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-    }
+    }//fecha main
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbtEntrar;
+    private javax.swing.JPasswordField jpfSenha;
+    private javax.swing.JTextField jtfUser;
+    private javax.swing.JLabel password;
+    private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }
